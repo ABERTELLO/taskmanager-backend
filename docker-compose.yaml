@@ -1,0 +1,15 @@
+
+version: '3.1'
+
+services:
+
+  mongo:
+    container_name: task-manager-container
+    hostname: task-manager-host
+    image: mongo:8.0.0-rc17-noble
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - ./mongo:/data/db
+      - ./mongo/log:/var/log/mongodb/
