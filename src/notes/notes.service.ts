@@ -37,7 +37,8 @@ export class NotesService {
 
   async findAll(paginationParams: PaginationParamsDto) {
     const { filters = null, limit = this.defaultLimit, page = 1 } = paginationParams
-    let data: UpdateNoteInterface[];
+    // let data: UpdateNoteInterface[];
+    let data: any;
     try {
       data = await this.noteModel
         .find(filters)
