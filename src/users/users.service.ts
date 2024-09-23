@@ -2,31 +2,31 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateNoteDto } from './dto/create-note.dto';
-import { UpdateNoteDto } from './dto/update-note.dto';
-import { Note } from './entities/note.entity';
-import { CreateNoteInterface, UpdateNoteInterface } from './interface/index';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
+import { UserInDbInterface } from './interface/user.interface';
 import { PaginationParamsDto } from 'src/common/dto/pagination-params.dto';
 import { handleError, handleException } from 'src/common/helpers/error.helper';
 
 @Injectable()
-export class NotesService {
+export class UsersService {
 
   private defaultLimit: number
 
   constructor(
 
-    @InjectModel(Note.name)
-    private readonly noteModel: Model<Note>,
+    @InjectModel(User.name)
+    private readonly userModel: Model<User>,
     private readonly configService: ConfigService,
   ) {
     this.defaultLimit = configService.get<number>('defaultLimit')
   }
 
-  async create(body: CreateNoteDto) {
-    let data: CreateNoteInterface;
+  async create(body: CreateUserDto) {
+    let data: any;
     try {
-      data = await this.noteModel.create(body);
+      data = await this.userModel.create(body);
     } catch (error) {
       handleError(error);
     } finally {
@@ -37,9 +37,9 @@ export class NotesService {
 
   async findAll(paginationParams: PaginationParamsDto) {
     const { filters = null, limit = this.defaultLimit, page = 1 } = paginationParams
-    let data: UpdateNoteInterface[];
+    let data: any;
     try {
-      data = await this.noteModel
+      data = await this.userModel
         .find(filters)
         .limit(limit)
         .skip((page - 1) * limit)
@@ -53,9 +53,9 @@ export class NotesService {
   }
 
   async findOne(id: string) {
-    let data: UpdateNoteInterface;
+    let data: UserInDbInterface;
     try {
-      data = await this.noteModel.findById(id);
+      data = await this.userModel.findById(id);
     } catch (error) {
       handleError(error);
     } finally {
@@ -65,9 +65,9 @@ export class NotesService {
   }
 
   async remove(id: string) {
-    let data: UpdateNoteInterface;
+    let data: UserInDbInterface;
     try {
-      data = await this.noteModel.findByIdAndDelete(id);
+      data = await this.userModel.findByIdAndDelete(id);
     } catch (error) {
       handleError(error);
     } finally {
@@ -76,10 +76,10 @@ export class NotesService {
     }
   }
 
-  async update(id: string, body: UpdateNoteDto) {
-    let data: UpdateNoteInterface;
+  async update(id: string, body: UpdateUserDto) {
+    let data: UserInDbInterface;
     try {
-      data = await this.noteModel.findByIdAndUpdate(id, body, { new: true });
+      data = await this.userModel.findByIdAndUpdate(id, body, { new: true });
     } catch (error) {
       handleError(error);
     } finally {

@@ -1,21 +1,25 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+const keyProps: object = {
+    index: true,
+};
+
 @Schema()
 export class Note extends Document {
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     author: string;
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     completed: boolean;
-    @Prop({index: true})
+    @Prop({...keyProps, required: false})
     content?: string;
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     date: string; // estimated completion date, format 'yyyymmddhhmmss'
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     registrationDate: string; // format 'yyyymmddhhmmss'
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     status: string; // regular, important, urgent, lapsed
-    @Prop({index: true})
+    @Prop({...keyProps, required: true})
     title: string;
 }
 

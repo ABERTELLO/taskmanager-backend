@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { NotesService } from './notes.service';
+import { Body, Controller, Delete, Get, Patch, Param, Post, Query } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { NotesService } from './notes.service';
+import { PaginationParamsDto } from 'src/common/dto/pagination-params.dto';
 import { ParseMongoIdPipe } from 'src/common/pipes/parse-mongo-id/parse-mongo-id.pipe';
 
 @Controller('notes')
@@ -14,8 +15,8 @@ export class NotesController {
   }
 
   @Get()
-  findAll() {
-    return this.notesService.findAll();
+  findAll(@Query() paginationParams: PaginationParamsDto) {
+    return this.notesService.findAll(paginationParams);
   }
 
   @Get(':id')
