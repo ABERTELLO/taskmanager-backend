@@ -1,11 +1,17 @@
+// Dependencies
 import { Module } from '@nestjs/common';
-import { SeedService } from './seed.service';
-import { SeedController } from './seed.controller';
+
+// Common
 import { NotesModule } from 'src/notes/notes.module';
 
+// Resource
+import { SeedController } from './seed.controller';
+import { SeedService } from './seed.service';
+
+
 @Module({
-  controllers: [SeedController],
-  imports: [NotesModule],
-  providers: [SeedService],
+    controllers: [SeedController],
+    imports: [NotesModule],
+    providers: [SeedService],
 })
-export class SeedModule {}
+export class SeedModule { }

@@ -1,4 +1,6 @@
+// Dependencies
 import { IsNumber, IsOptional, IsPositive, Min } from 'class-validator'
+
 
 export class PaginationParamsDto {
     @IsOptional()

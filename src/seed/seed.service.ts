@@ -1,9 +1,13 @@
+// Dependencies
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreateNoteInterface } from './interfaces/create-note.interface';
-import { Note } from 'src/notes/entities/note.entity';
-import { addDays, numDate } from 'src/common/helpers/date.helper';
 import { Model } from 'mongoose';
+
+// Common
+import { NewNoteInterface } from 'src/common/interfaces';
+import { addDays, numDate } from 'src/common/helpers';
+import { Note } from 'src/notes/entities';
+
 
 @Injectable()
 export class SeedService {
@@ -16,7 +20,7 @@ export class SeedService {
   async runSeed() {
     const maxIndex: number = 11; // quantity of notes to generate
     const deltaIndex: number = 4; // quantity of last notes that are 'completed: false'
-    const generatedNotes: CreateNoteInterface[] = [];
+    const generatedNotes: NewNoteInterface[] = [];
     const referenceParam: number = maxIndex - deltaIndex; // from here, 'completed: true' notes will be generated
     
     for (let index: number = 1; index < maxIndex; index++) {
@@ -25,7 +29,7 @@ export class SeedService {
       const stringDate: string = numDate(addDays(new Date(), - dateParam)).toString();
       const stringRegistrationDate: string = numDate(addDays(new Date(), - registrationDateParam)).toString();
       
-      const generatedNote: CreateNoteInterface = {
+      const generatedNote: NewNoteInterface = {
         author: 'Author',
         completed: index < referenceParam ? true : false,
         content: `This is the content of note ${index}`,

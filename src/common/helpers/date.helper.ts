@@ -1,4 +1,6 @@
+// Dependencies
 import { InternalServerErrorException } from '@nestjs/common';
+
 
 const addStartZeros = (value: any, builtStringLength: number = null) => {
     if (!builtStringLength) throw new InternalServerErrorException(`You should indicate zeros quantity as second argument of 'addStartZeros' function.`);

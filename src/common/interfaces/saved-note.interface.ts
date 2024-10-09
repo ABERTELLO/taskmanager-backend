@@ -1,4 +1,8 @@
-export interface CreateNoteInterface {
+// Dependencies
+import mongoose from 'mongoose';
+
+
+export interface SavedNoteInterface extends mongoose.Document {
     readonly author: string;
     readonly completed: boolean;
     readonly content?: string;

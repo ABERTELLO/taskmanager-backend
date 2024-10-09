@@ -1,6 +1,4 @@
-export interface UserInDbInterface {
-    readonly __v: number;
-    readonly _id: string; // Mongo ID
+export interface NewUserInterface {
     readonly email: string;
     readonly fullName: string; // First and last name, nickname, etc.
     readonly isActive: boolean;

@@ -1,10 +1,11 @@
+// Dependencies
 import { NotFoundException } from '@nestjs/common';
 
-export const handleError = (error: any) => {
+
+export const handleError = (error: any): void => {
     console.log(error);
 };
 
-export const handleException = (data: any) => {
+export const handleException = (data: any): void => {
     if (!data) throw new NotFoundException('Object does not exist.');
-    else return;
 };
