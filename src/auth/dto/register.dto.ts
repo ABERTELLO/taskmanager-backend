@@ -2,7 +2,7 @@
 import { IsArray, IsBoolean, IsEmail, IsIn, IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
 
 
-export class CreateUserDto {
+export class RegisterDto {
     @IsNotEmpty()
     @IsEmail()
     readonly email: string;
@@ -17,6 +17,7 @@ export class CreateUserDto {
         minLength: 6,
         minLowercase: 1,
         minNumbers: 1,
+        minSymbols: 0,
         minUppercase: 1,
     })
     readonly password: string;

@@ -1,11 +1,25 @@
 // Resource
-import { handleError, handleException } from './error.helper';
-import { addDays, numDate } from './date.helper';
+import {
+    errorResponse,
+    errorResponseAuthorization,
+    handleError,
+    handleException,
+    passwordException,
+    successResponseWithToken
+} from './error.helper';
+import {
+    addDays,
+    numDate
+} from './date.helper';
 
 
 export {
     addDays,
+    errorResponse,
+    errorResponseAuthorization,
     handleError,
     handleException,
-    numDate
+    numDate,
+    passwordException,
+    successResponseWithToken
 }

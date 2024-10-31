@@ -14,12 +14,14 @@ export class User extends Document {
     email: string;
     @Prop(keyProps)
     fullName: string;
-    @Prop({ ...keyProps, default: true })
+    @Prop({ ...keyProps, default: false })
     isActive: boolean;
     @Prop(keyProps)
     password: string;
-    @Prop({ ...keyProps, default: ['user'] })
-    roles: string[]; // user, admin
-}
+    @Prop({ ...keyProps, default: false })
+    rememberMe: boolean;
+    @Prop({ ...keyProps, default: 'user' })
+    role: string;
+};
 
 export const UserSchema = SchemaFactory.createForClass(User);

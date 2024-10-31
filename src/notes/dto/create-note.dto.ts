@@ -2,8 +2,6 @@
 import { IsBoolean, IsIn, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
 
-const allowedStatus = ['regular', 'important', 'urgent', 'lapsed'];
-
 export class CreateNoteDto {
     @IsNotEmpty()
     @IsString()
@@ -23,8 +21,8 @@ export class CreateNoteDto {
     @Length(14)
     readonly registrationDate: string; // format 'yyyymmddhhmmss'
     @IsNotEmpty()
-    @IsIn(allowedStatus)
-    readonly status: string; // regular, important, urgent, lapsed
+    @IsIn(['regular', 'important', 'urgent', 'lapsed'])
+    readonly status: string;
     @IsNotEmpty()
     @IsString()
     readonly title: string;

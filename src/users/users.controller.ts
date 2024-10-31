@@ -1,7 +1,8 @@
 // Dependencies
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 
 // Common
+import { JwtAuthGuard } from 'src/auth/config/jwt.guard';
 import { PaginationParamsDto } from 'src/common/dto';
 import { ParseMongoIdPipe } from 'src/common/pipes';
 
@@ -10,6 +11,7 @@ import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
 
 
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }

@@ -7,6 +7,7 @@ import { join } from 'path';
 
 // Common
 import { EnvConfig } from './config/env.config';
+import { AuthModule } from './auth/auth.module';
 import { NotesModule } from './notes/notes.module';
 import { SeedModule } from './seed/seed.module';
 import { UsersModule } from './users/users.module';
@@ -25,9 +26,10 @@ import { AppService } from './app.service';
         ServeStaticModule.forRoot({
             rootPath: join(__dirname, '..', 'public')
         }),
+        AuthModule,
         NotesModule,
         SeedModule,
-        UsersModule
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],
