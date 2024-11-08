@@ -3,5 +3,5 @@ export interface NewUserInterface {
     readonly fullName: string; // First and last name, nickname, etc.
     readonly isActive: boolean;
     readonly password: string;
-    readonly roles: string[]; // user, admin
+    readonly role: 'admin' | 'user';
 }
