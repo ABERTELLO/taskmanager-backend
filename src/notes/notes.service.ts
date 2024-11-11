@@ -11,7 +11,7 @@ import { handleError, handleException } from 'src/common/helpers';
 // Resource
 import { CreateNoteDto, UpdateNoteDto } from './dto';
 import { Note } from './entities';
-import { NewNoteInterface, SavedNoteInterface } from 'src/common/interfaces';
+import { NewNoteInterface, SavedNote } from 'src/common/interfaces';
 
 
 @Injectable()
@@ -42,7 +42,7 @@ export class NotesService {
 
     async findAll(paginationParams: PaginationParamsDto) {
         const { filters = null, limit = this.defaultLimit, page = 1 } = paginationParams
-        let data: SavedNoteInterface[];
+        let data: SavedNote[];
         try {
             data = await this.noteModel
                 .find(filters)
@@ -58,7 +58,7 @@ export class NotesService {
     }
 
     async findOne(id: string) {
-        let data: SavedNoteInterface;
+        let data: SavedNote;
         try {
             data = await this.noteModel.findById(id);
         } catch (error) {
@@ -70,7 +70,7 @@ export class NotesService {
     }
 
     async remove(id: string) {
-        let data: SavedNoteInterface;
+        let data: SavedNote;
         try {
             data = await this.noteModel.findByIdAndDelete(id);
         } catch (error) {
@@ -82,7 +82,7 @@ export class NotesService {
     }
 
     async update(id: string, body: UpdateNoteDto) {
-        let data: SavedNoteInterface;
+        let data: SavedNote;
         try {
             data = await this.noteModel.findByIdAndUpdate(id, body, { new: true });
         } catch (error) {

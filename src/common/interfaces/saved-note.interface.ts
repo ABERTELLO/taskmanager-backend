@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 
-export interface SavedNoteInterface extends mongoose.Document {
+export interface SavedNote extends mongoose.Document {
     readonly author: string;
     readonly completed: boolean;
     readonly content?: string;

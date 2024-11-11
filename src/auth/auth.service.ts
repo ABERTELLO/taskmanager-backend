@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 
 // Common
 import { User } from 'src/users/entities';
-import { LoginResponseInterface, SavedUserInterface } from 'src/common/interfaces';
+import { LoginResponseInterface, SavedUser } from 'src/common/interfaces';
 import { errorResponseAuthorization, handleError, handleException, passwordException } from 'src/common/helpers';
 
 // Resource
@@ -55,7 +55,7 @@ export class AuthService {
     //         jwt.verify(token, public_key, { algorithms: ['RS256'] }, (err: any, loggedUser: any) => {
     //             if (err) return res.status(401).send(errorResponseAuthorization(401, err))
     //             const { email, password } = loggedUser
-    //             this.userModel.findOne({ email }, (err: any, user: SavedUserInterface) => {
+    //             this.userModel.findOne({ email }, (err: any, user: SavedUser) => {
     //                 if (err) return res.status(500).send(errorResponseAuthorization(500, err))
     //                 if (user.password === password) {
     //                     next()
@@ -73,7 +73,7 @@ export class AuthService {
     //     let data: any
     //     try {
     //         const { email, password } = loginCredentials
-    //         const user = await this.userModel.findOne<SavedUserInterface>({ email, password });
+    //         const user = await this.userModel.findOne<SavedUser>({ email, password });
     //         const token = await this.validateCredentials(user, password)
     //         data.token = token
     //         data.userId = user._id
@@ -85,7 +85,7 @@ export class AuthService {
     //     }
     // }
 
-    // validateCredentials(user: SavedUserInterface, password: string) {
+    // validateCredentials(user: SavedUser, password: string) {
     //     let token = null
     //     const match = (password === user.password) ? true : false
     //     if (match) {

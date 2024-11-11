@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 
-export interface SavedUserInterface extends mongoose.Document {
+export interface SavedUser extends mongoose.Document {
     readonly email: string;
     readonly fullName: string; // First and last name, nickname, etc.
     readonly isActive: boolean;

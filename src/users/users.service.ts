@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 // Common
-import { SavedUserInterface } from 'src/common/interfaces';
+import { SavedUser } from 'src/common/interfaces';
 import { PaginationParamsDto } from 'src/common/dto';
 import { handleError, handleException } from 'src/common/helpers';
 
@@ -58,7 +58,7 @@ export class UsersService {
     }
 
     async findOne(id: string) {
-        let data: SavedUserInterface;
+        let data: SavedUser;
         try {
             data = await this.userModel.findById(id);
         } catch (error) {
@@ -70,7 +70,7 @@ export class UsersService {
     }
 
     async remove(id: string) {
-        let data: SavedUserInterface;
+        let data: SavedUser;
         try {
             data = await this.userModel.findByIdAndDelete(id);
         } catch (error) {
@@ -82,7 +82,7 @@ export class UsersService {
     }
 
     async update(id: string, body: UpdateUserDto) {
-        let data: SavedUserInterface;
+        let data: SavedUser;
         try {
             data = await this.userModel.findByIdAndUpdate(id, body, { new: true });
         } catch (error) {
