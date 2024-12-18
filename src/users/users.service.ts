@@ -2,12 +2,17 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
+import { hash } from 'bcrypt';
 import { Model } from 'mongoose';
 
 // Common
 import { SavedUser } from 'src/common/interfaces';
 import { PaginationParamsDto } from 'src/common/dto';
-import { handleError, handleException } from 'src/common/helpers';
+import {
+    formatPaginationParams,
+    handleError,
+    handleException
+} from 'src/common/helpers';
 
 // Resource
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -17,7 +22,7 @@ import { User } from './entities';
 @Injectable()
 export class UsersService {
 
-    private defaultLimit: number
+    private defaultLimit: number;
 
     constructor(
 
@@ -25,49 +30,56 @@ export class UsersService {
         private readonly userModel: Model<User>,
         private readonly configService: ConfigService,
     ) {
-        this.defaultLimit = configService.get<number>('defaultLimit')
-    }
+        this.defaultLimit = configService.get<number>('defaultLimit');
+    };
 
     async create(body: CreateUserDto) {
         let data: any;
         try {
-            data = await this.userModel.create(body);
+            const encryptedPassword = await hash(body.password, 10);
+            const userToSave = { ...body, password: encryptedPassword };
+            data = await this.userModel
+                .create(userToSave);
         } catch (error) {
             handleError(error);
         } finally {
             handleException(data);
-            return data;
-        }
-    }
+            return data.select('-password');
+        };
+    };
 
-    async findAll(paginationParams: PaginationParamsDto) {
-        const { filters = null, limit = this.defaultLimit, page = 1 } = paginationParams
-        let data: any;
+    async find(paginationParams: PaginationParamsDto) {
+        const params = formatPaginationParams(this.defaultLimit, paginationParams);
+
+        let data: SavedUser[];
         try {
             data = await this.userModel
-                .find(filters)
-                .limit(limit)
-                .skip((page - 1) * limit)
-                .sort({ date: 'asc' });
+                .find(params.filters)
+                .limit(params.limit)
+                .skip((params.page - 1) * params.limit)
+                .sort({ date: 'asc' })
+                .select('-password');
         } catch (error) {
             handleError(error);
         } finally {
             handleException(data);
             return data;
-        }
-    }
+        };
+    };
 
     async findOne(id: string) {
         let data: SavedUser;
         try {
-            data = await this.userModel.findById(id);
+            data = await this.userModel
+                .findById(id)
+                .select('-password');
         } catch (error) {
             handleError(error);
         } finally {
             handleException(data);
             return data;
-        }
-    }
+        };
+    };
 
     async remove(id: string) {
         let data: SavedUser;
@@ -78,18 +90,20 @@ export class UsersService {
         } finally {
             handleException(data);
             return data;
-        }
-    }
+        };
+    };
 
     async update(id: string, body: UpdateUserDto) {
         let data: SavedUser;
         try {
-            data = await this.userModel.findByIdAndUpdate(id, body, { new: true });
+            data = await this.userModel
+                .findByIdAndUpdate(id, body, { new: true })
+                .select('-password');
         } catch (error) {
             handleError(error);
         } finally {
             handleException(data);
             return data;
-        }
-    }
-}
+        };
+    };
+};

@@ -1,7 +1,6 @@
 // Resource
 import {
     errorResponse,
-    errorResponseAuthorization,
     handleError,
     handleException,
     passwordException,
@@ -11,15 +10,18 @@ import {
     addDays,
     numDate
 } from './date.helper';
+import {
+    formatPaginationParams
+} from './request.helper';
 
 
 export {
     addDays,
     errorResponse,
-    errorResponseAuthorization,
+    formatPaginationParams,
     handleError,
     handleException,
     numDate,
     passwordException,
     successResponseWithToken
-}
+};

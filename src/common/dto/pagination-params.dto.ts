@@ -1,10 +1,10 @@
 // Dependencies
-import { IsNumber, IsOptional, IsPositive, Min } from 'class-validator'
+import { IsNumber, IsOptional, IsPositive, Min } from 'class-validator';
 
 
 export class PaginationParamsDto {
     @IsOptional()
-    readonly filters?: object[]
+    readonly filters?: string
     @IsOptional()
     @IsNumber()
     @IsPositive()
@@ -15,4 +15,4 @@ export class PaginationParamsDto {
     @IsPositive()
     @Min(1)
     readonly page?: number
-}
+};

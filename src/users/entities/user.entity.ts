@@ -2,8 +2,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+// Common
+import { UserRoles } from 'src/common/interfaces';
 
-const keyProps: object = {
+
+const keyProps = {
     index: true,
     required: true,
 };
@@ -20,8 +23,8 @@ export class User extends Document {
     password: string;
     @Prop({ ...keyProps, default: false })
     rememberMe: boolean;
-    @Prop({ ...keyProps, default: 'user' })
-    role: string;
+    @Prop({ ...keyProps, default: UserRoles.user })
+    role: UserRoles;
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -6,12 +6,16 @@ import { Model } from 'mongoose';
 
 // Common
 import { PaginationParamsDto } from 'src/common/dto';
-import { handleError, handleException } from 'src/common/helpers';
+import {
+    handleError,
+    handleException,
+    formatPaginationParams
+} from 'src/common/helpers';
 
 // Resource
 import { CreateNoteDto, UpdateNoteDto } from './dto';
 import { Note } from './entities';
-import { NewNoteInterface, SavedNote } from 'src/common/interfaces';
+import { NewNote, SavedNote } from 'src/common/interfaces';
 
 
 @Injectable()
@@ -29,7 +33,7 @@ export class NotesService {
     }
 
     async create(body: CreateNoteDto) {
-        let data: NewNoteInterface;
+        let data: NewNote;
         try {
             data = await this.noteModel.create(body);
         } catch (error) {
@@ -40,14 +44,15 @@ export class NotesService {
         }
     }
 
-    async findAll(paginationParams: PaginationParamsDto) {
-        const { filters = null, limit = this.defaultLimit, page = 1 } = paginationParams
+    async find(paginationParams: PaginationParamsDto) {
+        const params = formatPaginationParams(this.defaultLimit, paginationParams);
+        
         let data: SavedNote[];
         try {
             data = await this.noteModel
-                .find(filters)
-                .limit(limit)
-                .skip((page - 1) * limit)
+                .find(params.filters)
+                .limit(params.limit)
+                .skip((params.page - 1) * params.limit)
                 .sort({ date: 'asc' });
         } catch (error) {
             handleError(error);

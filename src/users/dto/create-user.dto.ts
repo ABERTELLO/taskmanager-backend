@@ -1,5 +1,12 @@
 // Dependencies
-import { IsArray, IsBoolean, IsEmail, IsIn, IsNotEmpty, IsString, IsStrongPassword } from 'class-validator';
+import {
+    IsBoolean,
+    IsEmail,
+    IsIn,
+    IsNotEmpty,
+    IsString,
+    IsStrongPassword
+} from 'class-validator';
 
 
 export class CreateUserDto {
@@ -14,10 +21,11 @@ export class CreateUserDto {
     @IsNotEmpty()
     @IsString()
     @IsStrongPassword({
-        minLength: 6,
+        minLength: 8,
         minLowercase: 1,
         minNumbers: 1,
         minUppercase: 1,
+        minSymbols: 0
     })
     readonly password: string;
     @IsBoolean()

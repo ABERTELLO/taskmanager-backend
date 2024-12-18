@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 // Common
-import { NewNoteInterface } from 'src/common/interfaces';
+import { NewNote, NoteStatus } from 'src/common/interfaces';
 import { addDays, numDate } from 'src/common/helpers';
 import { Note } from 'src/notes/entities';
 
@@ -20,7 +20,7 @@ export class SeedService {
   async runSeed() {
     const maxIndex: number = 11; // quantity of notes to generate
     const deltaIndex: number = 4; // quantity of last notes that are 'completed: false'
-    const generatedNotes: NewNoteInterface[] = [];
+    const generatedNotes: NewNote[] = [];
     const referenceParam: number = maxIndex - deltaIndex; // from here, 'completed: true' notes will be generated
     
     for (let index: number = 1; index < maxIndex; index++) {
@@ -29,13 +29,13 @@ export class SeedService {
       const stringDate: string = numDate(addDays(new Date(), - dateParam)).toString();
       const stringRegistrationDate: string = numDate(addDays(new Date(), - registrationDateParam)).toString();
       
-      const generatedNote: NewNoteInterface = {
+      const generatedNote: NewNote = {
         author: 'Author',
         completed: index < referenceParam ? true : false,
         content: `This is the content of note ${index}`,
         date: stringDate,
         registrationDate: stringRegistrationDate,
-        status: index < referenceParam ? 'lapsed' : 'regular',
+        status: index < referenceParam ? NoteStatus.lapsed : NoteStatus.regular,
         title: `Title ${index}`,
       };
 

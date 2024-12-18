@@ -2,6 +2,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+// Common
+import { NoteStatus } from 'src/common/interfaces';
+
 
 const keyProps: object = {
     index: true,
@@ -20,7 +23,7 @@ export class Note extends Document {
     @Prop({...keyProps, required: true})
     registrationDate: string; // format 'yyyymmddhhmmss'
     @Prop({...keyProps, required: true})
-    status: string; // regular, important, urgent, lapsed
+    status: NoteStatus;
     @Prop({...keyProps, required: true})
     title: string;
 }

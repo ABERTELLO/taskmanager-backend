@@ -4,8 +4,11 @@ Nest-Mongoose scalable backend for a task manager.
 
 ## Before clone
 
-1. If you don't have nest CLI installed globally, execute:
-
+1. Check if you have ```Nest CLI``` installed globally:
+```bash
+$ nest -v
+```
+If you don't have it, install it:
 ```bash
 $ npm install -g @nestjs/cli
 ```
@@ -27,7 +30,11 @@ $ npm install
 4. Build database:
 
 ```bash
-$ docker-compose up -d
+$ docker compose up -d
+```
+If this command doesn't work, install ```docker-compose-v2```, and retry.
+```bash
+$ apt install docker-compose-v2
 ```
 
 5. Run app:

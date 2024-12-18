@@ -10,17 +10,8 @@ export const errorResponse = (code: number, error: any) => {
     };
 };
 
-export const errorResponseAuthorization = (code: number, error: any) => {
-    return {
-        code,
-        message: 'Error',
-        authorized: false,
-        printStackTrace: error
-    };
-};
-
-export const handleError = (error: any): void => {
-    console.log(error);
+export const handleError = (error: any) => {
+    return errorResponse(error.code, error);
 };
 
 export const handleException = (data: any): void => {

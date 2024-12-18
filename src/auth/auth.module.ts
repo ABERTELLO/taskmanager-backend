@@ -26,7 +26,7 @@ import { JwtStrategy } from './config/jwt.strategy';
             global: true,
             // secret: private_key,
             secret: 'secret',
-            signOptions: { expiresIn: '60s' },
+            // signOptions: { expiresIn: '60s' },
         }),
     ],
     exports: [MongooseModule],

@@ -11,7 +11,6 @@ import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersService } from './users.service';
 
 
-@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
@@ -21,21 +20,25 @@ export class UsersController {
         return this.usersService.create(createUserDto);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
-    findAll(@Query() paginationParams: PaginationParamsDto) {
-        return this.usersService.findAll(paginationParams);
+    find(@Query() paginationParams: PaginationParamsDto) {
+        return this.usersService.find(paginationParams);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     findOne(@Param('id', ParseMongoIdPipe) id: string) {
         return this.usersService.findOne(id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     update(@Param('id', ParseMongoIdPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
         return this.usersService.update(id, updateUserDto);
     }
 
+    // @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Param('id', ParseMongoIdPipe) id: string) {
         return this.usersService.remove(id);

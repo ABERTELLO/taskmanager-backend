@@ -1,15 +1,21 @@
 // Resource
-import { LoginResponseInterface } from './auth.interfaces';
-import { NewNoteInterface } from './new-note.interface';
-import { NewUserInterface } from './new-user.interface';
-import { SavedNote } from './saved-note.interface';
-import { SavedUser } from './saved-user.interface';
+import {
+    NewNote,
+    NoteStatus,
+    SavedNote
+} from './note.interface';
+import {
+    NewUser,
+    SavedUser,
+    UserRoles
+} from './user.interface';
 
 
 export {
-    LoginResponseInterface,
-    NewNoteInterface,
-    NewUserInterface,
+    NewNote,
+    NewUser,
+    NoteStatus,
     SavedNote,
-    SavedUser
-}
+    SavedUser,
+    UserRoles
+};

@@ -23,7 +23,7 @@ export class NotesController {
 
     @Get()
     findAll(@Query() paginationParams: PaginationParamsDto) {
-        return this.notesService.findAll(paginationParams);
+        return this.notesService.find(paginationParams);
     }
 
     @Get(':id')
